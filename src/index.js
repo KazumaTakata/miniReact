@@ -1,24 +1,11 @@
-import{h}from "./jsx/functions";
-import { manipulateDom, callback } from "./lib/index"
-
-let state = { text1: "text1111" };
-
-function view() {
-  return (
-    <ul id="cool" className="foo" onClick={callback}>
-      <li>{state.text1}</li>
-      <li>texte2</li>
-      <li>text3</li>
-    </ul>
-  );
-}
-
+import Component from "./lib/index";
+import {h} from "./jsx/functions"
+let component = new Component();
 
 function render(el) {
-  manipulateDom(el, view());
+  component.manipulateDom(el, component.render());
 }
 
 let main = document.getElementById("main");
 render(main);
 
-console.log(view());
