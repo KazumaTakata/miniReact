@@ -1,15 +1,17 @@
 import { h } from "../jsx/functions";
-import { updateProps} from "./attrfuncs"
+import  ManipulateAttribute from "./attrbute/attribute"
 h();
 
-class Component {
+class Component extends  ManipulateAttribute {
   constructor() {
+    super()
     this.prevVDOM = {};
     this.currVDOM = {};
     this.parentNode = null;
     this.firstNode = null;
     this.state = {};
     this.setComponent = {};
+    this.$refs = {};
   }
   setState(obj) {
     this.prevVDOM = Object.assign({}, this.render());
@@ -43,16 +45,7 @@ class Component {
         this.firstNode = Node;
       }
       if (vdom.props !== null) {
-        Object.keys(vdom.props).map(attr => {
-          if (attr === "className") {
-            Node.setAttribute("class", vdom.props[attr]);
-          } else if (attr.startsWith("on")) {
-            let eventKind = attr.split("on")[1].toLowerCase();
-            Node.addEventListener(eventKind, vdom.props[attr]);
-          } else {
-            Node.setAttribute(attr, vdom.props[attr]);
-          }
-        });
+        this.setProps(Node, vdom.props);
       }
       if (typeof vdom.child === "string") {
         let textNode = document.createTextNode(vdom.child);
@@ -98,14 +91,14 @@ class Component {
       }
     }
   }
-
+  
   updateDom(parentNode, CurrentNode, currVDOM, prevVDOM) {
     if (prevVDOM != undefined) {
       if (currVDOM.type !== prevVDOM.type) {
         CurrentNode.remove();
         this.updateDomAppendNode(currVDOM, parentNode);
       } else {
-        updateProps(CurrentNode, currVDOM.props, prevVDOM.props )
+        this.updateProps(CurrentNode, currVDOM.props, prevVDOM.props);
         if (typeof currVDOM.child === "string") {
           if (currVDOM.child !== prevVDOM.child) {
             CurrentNode.textContent = currVDOM.child;

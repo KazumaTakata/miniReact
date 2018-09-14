@@ -1,4 +1,4 @@
-import Component from "./test/attribute/update";
+import Component from "./test/refs/ref";
 let component = new Component();
 
 function render(el) {
