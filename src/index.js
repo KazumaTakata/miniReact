@@ -1,8 +1,8 @@
-import ConditionalComponent from "./test/conditionalrender/ifrender3";
-let conditionalComponent = new ConditionalComponent();
+import Component from "./test/attribute/update";
+let component = new Component();
 
 function render(el) {
-  conditionalComponent.renderin(el);
+  component.renderin(el);
 }
 
 let main = document.getElementById("main");

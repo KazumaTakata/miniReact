@@ -1,5 +1,5 @@
 import { h } from "../jsx/functions";
-
+import { updateProps} from "./attrfuncs"
 h();
 
 class Component {
@@ -105,6 +105,7 @@ class Component {
         CurrentNode.remove();
         this.updateDomAppendNode(currVDOM, parentNode);
       } else {
+        updateProps(CurrentNode, currVDOM.props, prevVDOM.props )
         if (typeof currVDOM.child === "string") {
           if (currVDOM.child !== prevVDOM.child) {
             CurrentNode.textContent = currVDOM.child;

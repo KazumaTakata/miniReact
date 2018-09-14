@@ -1,8 +1,9 @@
 function setProp($target, name, value) {
-  if (isCustomProp(name)) {
-    return;
-  } else if (name === "className") {
+  if (name === "className") {
     $target.setAttribute("class", value);
+  } else if (name.startsWith("on")) {
+    let eventKind = name.split("on")[1].toLowerCase();
+    $target.addEventListener(eventKind, vdom.props[attr]);
   } else if (typeof value === "boolean") {
     setBooleanProp($target, name, value);
   } else {
@@ -30,10 +31,11 @@ function removeBooleanProp($target, name) {
   $target[name] = false;
 }
 function removeProp($target, name, value) {
-  if (isCustomProp(name)) {
-    return;
-  } else if (name === "className") {
+  if (name === "className") {
     $target.removeAttribute("class");
+  } else if (name.startsWith("on")) {
+    let eventKind = name.split("on")[1].toLowerCase();
+    $target.removeAttribute(eventKind);
   } else if (typeof value === "boolean") {
     removeBooleanProp($target, name);
   } else {
@@ -56,4 +58,12 @@ function updateProp($target, name, newVal, oldVal) {
   }
 }
 
-export { setProp, setProps, setBooleanProp, setProps, setBooleanProp, removeBooleanProp, removeProp, updateProps, updateProp };
+export {
+  setProp,
+  setProps,
+  setBooleanProp,
+  removeBooleanProp,
+  removeProp,
+  updateProps,
+  updateProp,
+};
