@@ -1,8 +1,8 @@
-import ListComponent from "./test/listrender/delete";
-let listcomponent = new ListComponent();
+import ConditionalComponent from "./test/conditionalrender/ifrender3";
+let conditionalComponent = new ConditionalComponent();
 
 function render(el) {
-  listcomponent.renderin(el);
+  conditionalComponent.renderin(el);
 }
 
 let main = document.getElementById("main");
