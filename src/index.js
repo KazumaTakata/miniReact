@@ -1,8 +1,8 @@
-import Component from "./lib/index";
-let component = new Component();
+import ListComponent from "./test/listrender/delete";
+let listcomponent = new ListComponent();
 
 function render(el) {
-  component.renderin(el);
+  listcomponent.renderin(el);
 }
 
 let main = document.getElementById("main");

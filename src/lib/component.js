@@ -78,39 +78,63 @@ class Component {
     return node;
   }
 
-  updateDom(parentNode, CurrentNode, currVDOM, prevVDOM) {
-    if (currVDOM.type !== prevVDOM.type) {
-      CurrentNode.remove();
+  updateDomAppendNode(currVDOM, parentNode) {
+    if (this.setComponent[currVDOM.type] != undefined) {
+      let component = this.setComponent[currVDOM.type];
+      let Node = component.renderin(parentNode);
+    } else {
       let Node = document.createElement(currVDOM.type);
       parentNode.appendChild(Node);
-      currVDOM.child.map(chVDOM => {
-        this.updateDom(Node, null, chVDOM, null);
-      });
-    } else {
-      if (typeof currVDOM.child === "string") {
-        if (currVDOM.child !== prevVDOM.child) {
-          CurrentNode.textContent = currVDOM.child;
-        }
-      } else if (Array.isArray(currVDOM.child)) {
-        let currKeysSet = new Set(
-          currVDOM.child.map(ch => {
-            return ch.key;
-          })
-        );
-        let prevKeys = prevVDOM.child.map(ch => {
-          return ch.key;
+      if (Array.isArray(currVDOM.child)) {
+        currVDOM.child.map(chVDOM => {
+          this.updateDom(Node, null, chVDOM, null);
         });
-        let deletedKeys = prevKeys.filter(key => currKeysSet.has(key));
+      } else {
+        if (typeof currVDOM.child === "string") {
+          Node.textContent = currVDOM.child;
+        } else {
+          this.updateDom(Node, null, currVDOM.child, null);
+        }
+      }
+    }
+  }
 
-        currVDOM.child.map((chVDOM, index) => {
+  updateDom(parentNode, CurrentNode, currVDOM, prevVDOM) {
+    if (prevVDOM != undefined) {
+      if (currVDOM.type !== prevVDOM.type) {
+        CurrentNode.remove();
+        this.updateDomAppendNode(currVDOM, parentNode);
+      } else {
+        if (typeof currVDOM.child === "string") {
+          if (currVDOM.child !== prevVDOM.child) {
+            CurrentNode.textContent = currVDOM.child;
+          }
+        } else if (Array.isArray(currVDOM.child)) {
+          currVDOM.child.map((chVDOM, index) => {
+            this.updateDom(
+              CurrentNode,
+              CurrentNode.childNodes[index],
+              chVDOM,
+              prevVDOM.child[index]
+            );
+          });
+          if (currVDOM.child.length < prevVDOM.child.length) {
+            let prev_index = currVDOM.child.length;
+            for (let i = prev_index; i < prevVDOM.child.length; i++) {
+              CurrentNode.childNodes[prev_index].remove();
+            }
+          }
+        } else {
           this.updateDom(
             CurrentNode,
-            CurrentNode.childNodes[index],
-            chVDOM,
-            prevVDOM.child[index]
+            CurrentNode.childNodes[0],
+            currVDOM.child,
+            prevVDOM.child
           );
-        });
+        }
       }
+    } else {
+      this.updateDomAppendNode(currVDOM, parentNode);
     }
   }
 }
