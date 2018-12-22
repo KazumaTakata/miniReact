@@ -5,7 +5,6 @@ class ConditionalComponent extends Component {
     super()
     this.callback = this.callback.bind(this)
     this.state = {
-      listdata: ['apple', 'orange', 'purple'],
       isLoggedIn: false
     }
   }

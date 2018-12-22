@@ -1,5 +1,5 @@
-import ReactDom from './lib/reactdom'
-import Component from './test/refs/ref'
+import ReactDom from '../../lib/reactdom'
+import Component from './state'
 
 let component = new Component()
 
