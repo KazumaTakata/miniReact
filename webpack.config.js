@@ -18,7 +18,16 @@ module.exports = {
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
-          options: {}
+          options: {
+            plugins: [
+              [
+                'transform-react-jsx',
+                {
+                  pragma: 'this.h'
+                }
+              ]
+            ]
+          }
         }
       }
     ]
@@ -26,7 +35,6 @@ module.exports = {
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
     compress: true,
-    port: 9001,
     inline: true
   }
 }
