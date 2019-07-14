@@ -55,8 +55,12 @@ class ManipulateAttribute {
   updateProp($target, name, newVal, oldVal) {
     if (!newVal) {
       this.removeProp($target, name, oldVal)
+    } else if (typeof newVal == 'function') {
+      // if (oldVal.toString() != newVal.toString()){
+      //   this.removeProp($target, name, oldVal)
+      //   this.setProp($target, name, newVal)
+      // }
     } else if (!oldVal || newVal !== oldVal) {
-      this.removeProp($target, name, oldVal)
       this.setProp($target, name, newVal)
     }
   }
