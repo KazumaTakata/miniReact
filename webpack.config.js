@@ -1,16 +1,13 @@
-const path = require('path')
+var path = require('path')
 
 module.exports = {
-  mode: 'development',
-  // entry: "./src/index.js",
-  // entry: './src/test/HelloWorld/index.js',
-  // entry: './src/test/Prop/index.js',
-  entry: './src/test/state/index.js',
+  entry: './test/step9/index.js',
   output: {
-    path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js'
   },
-  devtool: 'inline-source-map',
+  resolve: {
+    modules: [path.resolve(__dirname, './src'), 'node_modules']
+  },
   module: {
     rules: [
       {
@@ -23,7 +20,7 @@ module.exports = {
               [
                 'transform-react-jsx',
                 {
-                  pragma: 'this.h'
+                  pragma: 'this.createElement'
                 }
               ]
             ]
@@ -32,9 +29,5 @@ module.exports = {
       }
     ]
   },
-  devServer: {
-    contentBase: path.join(__dirname, 'dist'),
-    compress: true,
-    inline: true
-  }
+  devtool: 'eval-source-map'
 }
