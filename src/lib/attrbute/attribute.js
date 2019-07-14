@@ -36,7 +36,8 @@ class ManipulateAttribute {
       $target.removeAttribute('class')
     } else if (name.startsWith('on')) {
       let eventKind = name.split('on')[1].toLowerCase()
-      $target.removeAttribute(eventKind)
+      // $target.removeAttribute(eventKind)
+      $target.removeEventListener(eventKind, value, true)
     } else if (typeof value === 'boolean') {
       this.removeBooleanProp($target, name)
     } else {
