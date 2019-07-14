@@ -1,7 +1,3 @@
-import ReactDom from './lib/reactdom'
-import Component from './test/refs/ref'
+import Component from './lib/component'
 
-// let main = document.getElementById('main')
-// ReactDom.render(component, main)
-
-export { ReactDom, Component }
+export default Component
