@@ -53,7 +53,7 @@ class ManipulateAttribute {
   }
 
   updateProp($target, name, newVal, oldVal) {
-    if (!newVal) {
+    if (typeof newVal == 'undefined') {
       this.removeProp($target, name, oldVal)
     } else if (typeof newVal == 'function') {
       // if (oldVal.toString() != newVal.toString()){
