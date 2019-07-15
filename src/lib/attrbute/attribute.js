@@ -60,7 +60,7 @@ class ManipulateAttribute {
       //   this.removeProp($target, name, oldVal)
       //   this.setProp($target, name, newVal)
       // }
-    } else if (!oldVal || newVal !== oldVal) {
+    } else if (typeof oldVal == 'undefined' || newVal !== oldVal) {
       this.setProp($target, name, newVal)
     }
   }
