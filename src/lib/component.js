@@ -26,6 +26,8 @@ class Component extends ManipulateAttribute {
     this.currVDOM = Object.assign({}, this.render())
 
     this.updateDom(this.parentDom, this.rootDom, this.currVDOM, this.prevVDOM)
+
+    this.componentDidUpdate()
   }
 
   manipulateDom(parentDom, vdom, isfirst) {
@@ -77,8 +79,13 @@ class Component extends ManipulateAttribute {
   renderIn(parent) {
     this.parentDom = parent
     let node = this.manipulateDom(parent, this.render(), true)
+    this.componentDidMount()
     return node
   }
+
+  componentDidMount() {}
+
+  componentDidUpdate() {}
 
   render() {
     console.warn('overwrite this method')
